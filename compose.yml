@@ -1,0 +1,17 @@
+services:
+  mysql:
+    ports:
+      - "3306:3306"
+    platform: linux/x86_64
+    image: mysql:8.1
+    container_name: db-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=shop
+      - TZ=Asia/Tokyo
+    build:
+      context: ./init
+      dockerfile: Dockerfile
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./init:/docker-entrypoint-initdb.d
